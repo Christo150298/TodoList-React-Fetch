@@ -1,9 +1,23 @@
 body {
     background: pink;
-}
-.container {
+    margin-top: 250px;
     place-items: center;
     display: grid;
+}
+h1 {
+    place-items: center;
+    display: grid;
+}
+ul li {
+    place-items: center;
+    list-style: none;
+    width: 450px;
+}
+input {
+    border: none;
     width: 100%;
-    margin-top: 250px;
+}
+
+.footer {
+    margin-left: 30px;
 }
