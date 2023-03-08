@@ -21,7 +21,7 @@ const handleKeyDown = (e) => {
 					<input type="text" placeholder="What needs to be done?" 
 					value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
 				</li>
-				{todos.map((t) => (<li>{t} <i class="fa-solid fa-x"></i> </li>))}
+				{todos.map((t) => (<li>{t} <button className="btn"> <i class="fa-solid fa-x"></i> </button> </li>))}
 			</ul>
 			<div className="footer">23 Tasks</div>
 		</div>
