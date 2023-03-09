@@ -14,16 +14,21 @@ const handleKeyDown = (e) => {
 };
 
 	return (
-		<div className="container">
+		<div>
 			<h1>To do List</h1>
 			<ul>
 				<li>
 					<input type="text" placeholder="What needs to be done?" 
 					value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
 				</li>
-				{todos.map((t) => (<li>{t} <button className="btn"> <i class="fa-solid fa-x"></i> </button> </li>))}
+				{todos.map((item, index) => 
+				(<li>{item} 
+					<i className="icono fa-solid fa-trash-can" 
+						onClick={() => setTodos(todos.filter((secondItem, currentIndex) => index != currentIndex))}>
+					</i> 
+				</li>))}
 			</ul>
-			<div className="footer">23 Tasks</div>
+			<div className="footer">{todos.length} Tasks</div>
 		</div>
 	);
 };
