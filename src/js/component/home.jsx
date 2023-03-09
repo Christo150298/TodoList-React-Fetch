@@ -8,10 +8,19 @@ const [todos, setTodos] = useState([])
 
 const handleKeyDown = (e) => {
 	if(e.key === "Enter") {
-	setTodos(todos.concat(inputValue));
+	const newToDo = {
+		id: Math.random(),
+		todo: inputValue
+	}
+	setTodos(todos.concat(newToDo));
 	setInputValue("");
 	}
 };
+
+const handleDeleteToDo = (id) =>{
+	const newList = todos.filter((item) => id !== item.id)
+	setTodos(newList);
+}
 
 	return (
 		<div>
@@ -21,11 +30,9 @@ const handleKeyDown = (e) => {
 					<input type="text" placeholder="What needs to be done?" 
 					value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
 				</li>
-				{todos.map((item, index) => 
-				(<li>{item} 
-					<i className="icono fa-solid fa-trash-can" 
-						onClick={() => setTodos(todos.filter((secondItem, currentIndex) => index != currentIndex))}>
-					</i> 
+				{todos.map((item) => 
+				(<li key={item.id}>{item.todo} 
+					<i className="icono fa-solid fa-trash-can" onClick={() => handleDeleteToDo(item.id)}></i> 
 				</li>))}
 			</ul>
 			<div className="footer">{todos.length} Tasks</div>
