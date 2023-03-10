@@ -1,22 +1,53 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
 
 const [inputValue, setInputValue] = useState("");
 const [todos, setTodos] = useState([])
 
+//POST
+fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298', {
+    method: "POST",
+    body: JSON.stringify(todos),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(resp => console.log("Todo va en orden"))
+  .catch(error => console.log("ERROR FATAL"));
+
+//GET
+useEffect(() => {
+	fetch('http://assets.breatheco.de/apis/fake/todos/user/christo150298')
+	.then((res) => res.json())
+	.then((res) => setTodos(res))
+},[]);
+
+//PUT
+useEffect(() => {
+	fetch('http://assets.breatheco.de/apis/fake/todos/user/christo150298', {
+		method: "PUT",
+		body: JSON.stringify(todos),
+		headers: {
+			"Content-Type": "application/json"
+		}
+	})
+	.then(resp => console.log("Everything OK"))
+	.catch(error => console.log("Something is wrong!!")) 
+},[todos]);
+
 const handleKeyDown = (e) => {
 	if(e.key === "Enter") {
 	const newToDo = {
-		id: Math.random(),
+		id: (Math.random()*50).toFixed(2),
 		todo: inputValue
 	}
 	setTodos(todos.concat(newToDo));
 	setInputValue("");
 	}
 };
-
+console.log(todos)
 const handleDeleteToDo = (id) =>{
 	const newList = todos.filter((item) => id !== item.id)
 	setTodos(newList);
