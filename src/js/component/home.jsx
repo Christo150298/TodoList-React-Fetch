@@ -7,7 +7,9 @@ const [inputValue, setInputValue] = useState("");
 const [todos, setTodos] = useState([])
 
 //POST
-fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298', {
+const createUser = () =>{
+	return(
+	fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298', {
     method: "POST",
     body: JSON.stringify(todos),
     headers: {
@@ -15,27 +17,36 @@ fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298', {
     }
   })
   .then(resp => console.log("Todo va en orden"))
-  .catch(error => console.log("ERROR FATAL"));
+  .catch(error => console.log("ERROR FATAL")));
+}
+useEffect(createUser, [])
+
 
 //GET
-useEffect(() => {
-	fetch('http://assets.breatheco.de/apis/fake/todos/user/christo150298')
-	.then((res) => res.json())
-	.then((res) => setTodos(res))
-},[]);
+const getTodos = () => {
+	return(
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298')
+		.then((res) => res.json())
+		.then((res) => setTodos(res))
+	)
+}
+useEffect(getTodos, []);
 
 //PUT
-useEffect(() => {
-	fetch('http://assets.breatheco.de/apis/fake/todos/user/christo150298', {
+const inserTodos = () => {
+	return(
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/christo150298', {
 		method: "PUT",
 		body: JSON.stringify(todos),
 		headers: {
 			"Content-Type": "application/json"
 		}
 	})
+	.then((res) => getTodos(res))
 	.then(resp => console.log("Everything OK"))
 	.catch(error => console.log("Something is wrong!!")) 
-},[todos]);
+	)
+} 
 
 const handleKeyDown = (e) => {
 	if(e.key === "Enter") {
@@ -45,6 +56,7 @@ const handleKeyDown = (e) => {
 	}
 	setTodos(todos.concat(newToDo));
 	setInputValue("");
+	inserTodos();
 	}
 };
 console.log(todos)
