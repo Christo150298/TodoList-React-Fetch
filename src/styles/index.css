@@ -28,7 +28,8 @@ input {
 }
 
 .icono {
-    float: right;
+    display: flex;
+    justify-content: end;
     padding: 3px;
     margin-top: 2px;
 }
